@@ -1,0 +1,2 @@
+# StringIn
+Local $line, $pid = Run(@ComSpec &amp; " /c " &amp; 'netsh wlan show interfaces', "", @SW_HIDE, $STDERR_MERGED)   ProcessWaitClose($pid)   $line = StdoutRead($pid)   If @error Then Return "Error"   $line = StringStripWS($line, 4)   If StringInStr($line, "SSID") Then     $line = StringTrimLeft($line, StringInStr($line, "SSID") + 6)     Return StringTrimRight($line, StringLen($line) - StringInStr($line, "BSSID") + 2)   ElseIf StringInStr($line, "disconnected") Then     Return "None"
